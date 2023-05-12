@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+
+  <title>Frontend Mentor | Expenses chart component</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    * {
+      padding: 0px;
+      margin: 0px;
+      font-size: 18px;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    body {
+      background-color: hsl(27, 66%, 92%);
+    }
+
+    .mainWrapper {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+    .smallWrapper {
+      width: 40%;
+      height: 80%;
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .myBalance {
+      background-color: hsl(10, 79%, 65%);
+      width: 100%;
+      border-radius: 14px;
+      padding-top: 2%;
+      padding-bottom: 2%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+
+    }
+
+    .myBalanceInfo {
+      color: hsl(33, 100%, 98%);
+      margin-left: 3%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .myBalanceInfo p:nth-of-type(2) {
+      font-weight: 800;
+      font-size: 25px;
+      margin-top: 2%;
+    }
+
+    .myBalance img {
+      margin-right: 5%;
+    }
+
+    .statistics {
+      border-radius: 14px;
+      background-color: hsl(33, 100%, 98%);
+      width: 94%;
+      height: 94%;
+      margin-top: 3%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3%;
+    }
+
+    .statistics>p:nth-of-type(1) {
+      font-size: 25px;
+      font-weight: 800;
+      text-align: left;
+      width: 100%;
+      color: hsl(25, 47%, 15%);
+    }
+
+    .barsWrapper {
+      width: 96%;
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-left: 2%;
+      margin-right: 2%;
+      margin-bottom: 5%;
+
+
+    }
+
+    .bar {
+      background-color: hsl(10, 79%, 65%);
+      width: 3vw;
+      border-radius: 5px;
+
+    }
+
+    .bar:hover {
+      cursor: pointer;
+      opacity: 80%;
+    }
+
+    .barOuter {
+      height: 130%;
+      width: 9%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+
+
+    }
+
+    .barOuter p {
+      text-align: center;
+      width: 100%;
+      margin-top: 1vh;
+      color: hsl(28, 10%, 53%);
+    }
+
+    .above {
+      display: none;
+      color: white;
+      background-color: hsl(25, 47%, 15%);
+      padding: 15%;
+      width: 100%;
+      margin-left: -9%;
+      margin-bottom: 15%;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .above:before {
+      content: '$'
+    }
+
+    .barsInfo {
+      width: 96%;
+      margin-left: 2%;
+      margin-right: 2%;
+      border-top: 2px solid hsl(11, 39%, 80%);
+      ;
+      padding-top: 1%;
+      margin-bottom: 3%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .barsInfoTotal {
+      margin-top: 1%;
+    }
+
+    .barsInfoTotal p:nth-of-type(1) {
+      color: hsl(28, 10%, 53%);
+    }
+
+    .barsInfoTotal p:nth-of-type(2) {
+      color: hsl(25, 47%, 15%);
+      font-size: 30px;
+      font-weight: 800;
+    }
+
+    .barsInfoPercent p:nth-of-type(1) {
+      color: hsl(25, 47%, 15%);
+      text-align: end;
+      font-weight: 800;
+      margin-top: 50%;
+    }
+
+    .barsInfoPercent p:nth-of-type(2) {
+      margin-top: 2%;
+      color: hsl(28, 10%, 53%);
+    }
+
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .attribution a {
+      font-size: 11px;
+      color: hsl(228, 45%, 44%);
+    }
+
+    @media (max-width: 375px) {
+      .smallWrapper {
+        height: 90%;
+        width: 90%;
+      }
+
+      .barOuter {
+        width: 10vw;
+      }
+
+      .above {
+        width: 6vh;
+        margin-left: -1vh;
+        font-size: 10px;
+      }
+
+      .bar {
+        width: 8vw;
+      }
+
+      .myBalance {
+        padding-top: 5%;
+        padding-bottom: 5%;
+        margin-bottom: 3%;
+        margin-top: 10%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="mainWrapper">
+
+    <div class="smallWrapper">
+
+      <div class="myBalance">
+        <div class="myBalanceInfo">
+          <p>My balance</p>
+          <p>$921.48</p>
+        </div>
+        <img src="images\logo.svg">
+
+      </div>
+
+      <div class="statistics">
+        <p>Spending - Last 7 days</p>
+        <div class="barsWrapper">
+
+          <div class="barOuter">
+            <div class="above" id="monHover"></div>
+            <div class="bar" id="monBar"></div>
+            <p>mon</p>
+          </div>
+
+
+          <div class="barOuter">
+            <div class="above" id="tueHover"></div>
+            <div class="bar" id="tueBar"></div>
+            <p>tue</p>
+          </div>
+
+
+          <div class="barOuter">
+            <div class="above" id="wedHover"></div>
+            <div class="bar" id="wedBar"></div>
+            <p>wed</p>
+          </div>
+
+
+          <div class="barOuter">
+            <div class="above" id="thuHover"></div>
+            <div class="bar" id="thuBar"></div>
+            <p>thu</p>
+          </div>
+
+
+
+          <div class="barOuter">
+            <div class="above" id="friHover"></div>
+            <div class="bar" id="friBar"></div>
+            <p>fri</p>
+          </div>
+
+
+          <div class="barOuter">
+            <div class="above" id="satHover"></div>
+            <div class="bar" id="satBar"></div>
+            <p>sat</p>
+          </div>
+
+
+          <div class="barOuter">
+            <div class="above" id="sunHover"></div>
+            <div class="bar" id="sunBar"></div>
+            <p>sun</p>
+          </div>
+
+        </div>
+        <div class="barsInfo">
+          <div class="barsInfoTotal">
+            <p>Total this month</p>
+            <p>$478.33</p>
+          </div>
+
+          <div class="barsInfoPercent">
+            <p>+2.4%</p>
+            <p>from last month</p>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+    Coded by <a href="#">Pascu Ioana-Georgia</a>.
+  </div>
+
+
+
+  <script>
+
+    fetch('data.json')
+      .then((response) => response.json())
+      .then((text) => {
+        console.log(text)
+        monHover.innerText = text[0].amount
+        tueHover.innerText = text[1].amount
+        wedHover.innerText = text[2].amount
+        thuHover.innerText = text[3].amount
+        friHover.innerText = text[4].amount
+        satHover.innerText = text[5].amount
+        sunHover.innerText = text[6].amount
+
+
+        monBar.style.height = text[0].amount + '%'
+        tueBar.style.height = text[1].amount + '%'
+        wedBar.style.height = text[2].amount + '%'
+        thuBar.style.height = text[3].amount + '%'
+        friBar.style.height = text[4].amount + '%'
+        satBar.style.height = text[5].amount + '%'
+        sunBar.style.height = text[6].amount + '%'
+
+      })
+
+    const d = new Date();
+    let day = d.getDay()
+
+
+    if (day === 1) {
+      monBar.style.backgroundColor = 'hsl(186, 34%, 60%)'
+    }
+    monBar.addEventListener('mouseover', function () {
+      monHover.style.display = 'block'
+
+    })
+    monBar.addEventListener('mouseleave', function () {
+      monHover.style.display = 'none'
+    })
+
+    if (day === 2) {
+      tueBar.style.backgroundColor = 'hsl(186, 34%, 60%)'
+    }
+    tueBar.addEventListener('mouseover', function () {
+      tueHover.style.display = 'block'
+
+    })
+    tueBar.addEventListener('mouseleave', function () {
+      tueHover.style.display = 'none'
+    })
+
+    if (day === 3) {
+      wedBar.style.backgroundColor = 'hsl(186, 34%, 60%)'
+    }
+    wedBar.addEventListener('mouseover', function () {
+      wedHover.style.display = 'block'
+
+    })
+    wedBar.addEventListener('mouseleave', function () {
+      wedHover.style.display = 'none'
+    })
+
+    if (day === 4) {
+      thuBar.style.backgroundColor = 'hsl(186, 34%, 60%)'
+    }
+    thuBar.addEventListener('mouseover', function () {
+      thuHover.style.display = 'block'
+
+    })
+    thuBar.addEventListener('mouseleave', function () {
+      thuHover.style.display = 'none'
+    })
+
+    if (day === 5) {
+      friBar.style.backgroundColor = 'hsl(186, 34%, 60%)'
+    }
+    friBar.addEventListener('mouseover', function () {
+      friHover.style.display = 'block'
+
+    })
+    friBar.addEventListener('mouseleave', function () {
+      friHover.style.display = 'none'
+    })
+
+    if (day === 6) {
+      satBar.style.backgroundColor = 'hsl(186, 34%, 60%)'
+    }
+    satBar.addEventListener('mouseover', function () {
+      satHover.style.display = 'block'
+
+    })
+    satBar.addEventListener('mouseleave', function () {
+      satHover.style.display = 'none'
+    })
+
+    if (day === 0) {
+      sunBar.style.backgroundColor = 'hsl(186, 34%, 60%)'
+    }
+    sunBar.addEventListener('mouseover', function () {
+      sunHover.style.display = 'block'
+
+    })
+    sunBar.addEventListener('mouseleave', function () {
+      sunHover.style.display = 'none'
+    })
+
+  </script>
+</body>
+
+</html>
